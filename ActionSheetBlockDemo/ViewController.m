@@ -44,7 +44,7 @@
 //                                                            NSLog(@"==> actionSheet View Tap buttonIndex:%d",buttonIndex);
 //                                                        }];
 //    [actionSheet showInView:self.view];
-//    
+//
     // or
     UIActionSheet *actionSheet = [UIActionSheet actionSheetWithTitle:@"title"
                                                         buttonTitles:@[@"btn1",@"btn2",@"btn1",@"cancle"]
