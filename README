@@ -2,18 +2,111 @@ Block for AlertView and ActionSheet.
 
 Examples:
 
+ // defalut cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
     [UIAlertView showWithTitle:@"title"
                        message:@"message"
                   buttonTitles:@[@"btn1",@"btn2",@"cancel"]
-             cancelButtonIndex:2
                        dismiss:^(id view, NSInteger buttonIndex) {
                            NSLog(@"==> alert View Tap buttonIndex:%d",buttonIndex);
     }];
 
-
+ // default cancelButtonIndex = numberOfButtons - 1, destructiveButtonIndex = -1
     UIActionSheet *actionSheet = [UIActionSheet actionSheetWithTitle:@"title"
-                                                        	buttonTitles:@[@"btn1",@"btn2",@"btn1",@"cancle"]
+                                                        buttonTitles:@[@"btn1",@"btn2",@"btn1",@"cancle"]
                                                              dismiss:^(id view, NSInteger buttonIndex) {
-                                                            NSLog(@"==> actionSheet View Tap buttonIndex:%d",buttonIndex);
-                                                        }];
+                             NSLog(@"==> actionSheet View Tap buttonIndex:%d",buttonIndex);
+     }];
     [actionSheet showInView:self.view];
+
+
+ Others:
+  UIAlertView:
+// Dismiss Block
+// cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
++ (id)showWithTitle:(NSString *)title
+            message:(NSString *)message
+       buttonTitles:(NSArray *)buttonTitles
+            dismiss:(DismissBlock)dismissBlock;
+
++ (id)showWithTitle:(NSString *)title
+            message:(NSString *)message
+       buttonTitles:(NSArray *)buttonTitles
+  cancelButtonIndex:(NSInteger)cancelButtonIndex
+            dismiss:(DismissBlock)dismissBlock;
+
++ (id)showWithTitle:(NSString *)title
+            message:(NSString *)message
+  cancelButtonTitle:(NSString *)cancelButtonTitle
+  otherButtonTitles:(NSArray *)otherButtonTitles
+            dismiss:(DismissBlock)dismissBlock;
+
+- (void)showWithDismiss:(DismissBlock)dismissBlock;
+
+// cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
++ (id)alertViewWithTitle:(NSString *)title
+                 message:(NSString *)message
+            buttonTitles:(NSArray *)buttonTitles
+                 dismiss:(DismissBlock)dismissBlock;
+
++ (id)alertViewWithTitle:(NSString *)title
+                 message:(NSString *)message
+            buttonTitles:(NSArray *)buttonTitles
+       cancelButtonIndex:(NSInteger)cancelButtonIndex
+                 dismiss:(DismissBlock)dismissBlock;
+
++ (id)alertViewWithTitle:(NSString *)title
+                 message:(NSString *)message
+       cancelButtonTitle:(NSString *)cancelButtonTitle
+       otherButtonTitles:(NSArray *)otherButtonTitles
+                 dismiss:(DismissBlock)dismissBlock;
+
+
+
+// ButtonItem Block
++ (id)alertViewWithTitle:(NSString *)title
+                 message:(NSString *)message
+        cancelButtonItem:(ButtonItem *)cancelButtonItem
+        otherButtonItems:(NSArray *)otherButtonItems;
+
++ (id)showWithTitle:(NSString *)title
+            message:(NSString *)message
+   cancelButtonItem:(ButtonItem *)cancelButtonItem
+   otherButtonItems:(NSArray *)otherButtonItems;
+
+
+ UIActionSheet:
+// cancelButtonIndex = numberOfButtons - 1
++ (id)actionSheetWithTitle:(NSString *)title
+              buttonTitles:(NSArray *)buttonTitles
+    destructiveButtonIndex:(NSInteger)destructiveButtonIndex
+                   dismiss:(DismissBlock)dismissBlock;
+
+
++ (id)actionSheetWithTitle:(NSString *)title
+              buttonTitles:(NSArray *)buttonTitles
+         cancelButtonIndex:(NSInteger)cancelButtonIndex
+    destructiveButtonIndex:(NSInteger)destructiveButtonIndex
+                   dismiss:(DismissBlock)dismissBlock;
+
++ (id)actionSheetWithTitle:(NSString *)title
+         cancelButtonTitle:(NSString *)cancelTitle
+    destructiveButtonTitle:(NSString *)destructiveTitle
+         otherButtonTitles:(NSArray *)buttonTitles
+                   dismiss:(DismissBlock)dismissBlock;
+
+
+// buttonItem Block
+// cancelButtonIndex = numberOfButtons - 1, destructiveButtonIndex = -1
++ (id)actionSheetWithTitle:(NSString *)title
+               buttonItems:(NSArray *)buttonItems;
+
+// cancelButtonIndex = -1
++ (id)actionSheetWithTitle:(NSString *)title
+               buttonItems:(NSArray *)buttonItems
+    destructiveButtonIndex:(NSInteger)destructiveButtonIndex;
+
++ (id)actionSheetWithTitle:(NSString *)title
+               buttonItems:(NSArray *)buttonItems
+         cancelButtonIndex:(NSInteger)cancelButtonIndex
+    destructiveButtonIndex:(NSInteger)destructiveButtonIndex;
+
