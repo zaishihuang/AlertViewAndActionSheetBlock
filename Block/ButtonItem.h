@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @class ButtonItem;
-typedef void(^DismissBlock)(id view, NSInteger buttonIndex);
-typedef void(^CompleteTapBlock)(id view, ButtonItem *buttonItem);
+
+typedef void(^ButtonItemActionBlock)(id view, ButtonItem *buttonItem);
 
 @interface ButtonItem : NSObject
 @property (strong, nonatomic) NSString *title;
-@property (copy, nonatomic) CompleteTapBlock completeTapBlock;
+@property (copy, nonatomic) ButtonItemActionBlock actionBlock;
 
 + (ButtonItem *)buttonItemWithTitle:(NSString *)title;
-+ (ButtonItem *)buttonItemWithTitle:(NSString *)title completeTapBlock:(CompleteTapBlock)completeTapBlock;
-- (id)initWithTitle:(NSString *)title completeTapBlock:(CompleteTapBlock)completeTapBlock;
++ (ButtonItem *)buttonItemWithTitle:(NSString *)title actionBlock:(ButtonItemActionBlock)actionBlock;
+- (id)initWithTitle:(NSString *)title actionBlock:(ButtonItemActionBlock)actionBlock;
 
 @end

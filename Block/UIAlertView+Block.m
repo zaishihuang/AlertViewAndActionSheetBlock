@@ -17,7 +17,7 @@
     method_exchangeImplementations(oldMethod, newMethod);
 }
 
-- (void)showWithDismiss:(DismissBlock)dismissBlock {
+- (void)showWithDismiss:(AlertViewDismissBlock)dismissBlock {
     self.dismissBlock = dismissBlock;
     [self show];
 }
@@ -32,8 +32,8 @@
     NSArray *buttonItems = self.buttonItems;
     if (buttonIndex > -1 && buttonIndex < buttonItems.count){
         ButtonItem *buttonItem = [buttonItems objectAtIndex:buttonIndex];
-        if (buttonItem.completeTapBlock) {
-            buttonItem.completeTapBlock(weakSelf,buttonItem);
+        if (buttonItem.actionBlock) {
+            buttonItem.actionBlock(weakSelf,buttonItem);
         }
     }
 }
@@ -45,7 +45,7 @@
                  message:(NSString *)message
        cancelButtonTitle:(NSString *)cancelButtonTitle
        otherButtonTitles:(NSArray *)otherButtonTitles
-                 dismiss:(DismissBlock)dismissBlock {
+                 dismiss:(AlertViewDismissBlock)dismissBlock {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     if (alertView) {
         if (cancelButtonTitle && otherButtonTitles.count < 2) {//cancelButton Index at 0
@@ -70,7 +70,7 @@
                  message:(NSString *)message
             buttonTitles:(NSArray *)buttonTitles
        cancelButtonIndex:(NSInteger)cancelButtonIndex
-                 dismiss:(DismissBlock)dismissBlock {
+                 dismiss:(AlertViewDismissBlock)dismissBlock {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     if (alertView) {
         for (NSString *buttonTitle in buttonTitles) {
@@ -85,7 +85,7 @@
 + (id)alertViewWithTitle:(NSString *)title
                  message:(NSString *)message
             buttonTitles:(NSArray *)buttonTitles
-                 dismiss:(DismissBlock)dismissBlock {
+                 dismiss:(AlertViewDismissBlock)dismissBlock {
     return [self alertViewWithTitle:title
                             message:message
                        buttonTitles:buttonTitles
@@ -98,7 +98,7 @@
             message:(NSString *)message
   cancelButtonTitle:(NSString *)cancelButtonTitle
   otherButtonTitles:(NSArray *)otherButtonTitles
-            dismiss:(DismissBlock)dismissBlock {
+            dismiss:(AlertViewDismissBlock)dismissBlock {
     UIAlertView *alertView = [self alertViewWithTitle:title
                                               message:message
                                     cancelButtonTitle:cancelButtonTitle
@@ -112,7 +112,7 @@
                  message:(NSString *)message
        buttonTitles:(NSArray *)buttonTitles
        cancelButtonIndex:(NSInteger)cancelButtonIndex
-                 dismiss:(DismissBlock)dismissBlock {
+                 dismiss:(AlertViewDismissBlock)dismissBlock {
     UIAlertView *alertView = [self alertViewWithTitle:title
                                               message:message
                                          buttonTitles:buttonTitles
@@ -125,7 +125,7 @@
 + (id)showWithTitle:(NSString *)title
             message:(NSString *)message
        buttonTitles:(NSArray *)buttonTitles
-            dismiss:(DismissBlock)dismissBlock {
+            dismiss:(AlertViewDismissBlock)dismissBlock {
     return [self showWithTitle:title
                        message:message
                   buttonTitles:buttonTitles
@@ -170,11 +170,11 @@
 #pragma mark -
 #pragma mark Property Get or Set
 static char dismissBlockKey;
-- (DismissBlock)dismissBlock {
+- (AlertViewDismissBlock)dismissBlock {
     return objc_getAssociatedObject(self, &dismissBlockKey);
 }
 
-- (void)setDismissBlock:(DismissBlock)dissmissBlock {
+- (void)setDismissBlock:(AlertViewDismissBlock)dissmissBlock {
     if (self.dismissBlock != dissmissBlock) {
         objc_setAssociatedObject(self, &dismissBlockKey, dissmissBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }

@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ButtonItem.h"
 
+typedef void(^AlertViewDismissBlock)(UIAlertView *alertView, NSInteger buttonIndex);
+
 @interface UIAlertView (Block)
-@property (copy, nonatomic) DismissBlock dismissBlock;
+@property (copy, nonatomic) AlertViewDismissBlock dismissBlock;
 @property (strong, nonatomic) NSArray *buttonItems;
 
 // Dismiss Block
@@ -18,39 +20,39 @@
 + (id)showWithTitle:(NSString *)title
             message:(NSString *)message
        buttonTitles:(NSArray *)buttonTitles
-            dismiss:(DismissBlock)dismissBlock;
+            dismiss:(AlertViewDismissBlock)dismissBlock;
 
 + (id)showWithTitle:(NSString *)title
             message:(NSString *)message
        buttonTitles:(NSArray *)buttonTitles
   cancelButtonIndex:(NSInteger)cancelButtonIndex
-            dismiss:(DismissBlock)dismissBlock;
+            dismiss:(AlertViewDismissBlock)dismissBlock;
 
 + (id)showWithTitle:(NSString *)title
             message:(NSString *)message
   cancelButtonTitle:(NSString *)cancelButtonTitle
   otherButtonTitles:(NSArray *)otherButtonTitles
-            dismiss:(DismissBlock)dismissBlock;
+            dismiss:(AlertViewDismissBlock)dismissBlock;
 
-- (void)showWithDismiss:(DismissBlock)dismissBlock;
+- (void)showWithDismiss:(AlertViewDismissBlock)dismissBlock;
 
 // cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
 + (id)alertViewWithTitle:(NSString *)title
                  message:(NSString *)message
             buttonTitles:(NSArray *)buttonTitles
-                 dismiss:(DismissBlock)dismissBlock;
+                 dismiss:(AlertViewDismissBlock)dismissBlock;
 
 + (id)alertViewWithTitle:(NSString *)title
                  message:(NSString *)message
             buttonTitles:(NSArray *)buttonTitles
        cancelButtonIndex:(NSInteger)cancelButtonIndex
-                 dismiss:(DismissBlock)dismissBlock;
+                 dismiss:(AlertViewDismissBlock)dismissBlock;
 
 + (id)alertViewWithTitle:(NSString *)title
                  message:(NSString *)message
        cancelButtonTitle:(NSString *)cancelButtonTitle
        otherButtonTitles:(NSArray *)otherButtonTitles
-                 dismiss:(DismissBlock)dismissBlock;
+                 dismiss:(AlertViewDismissBlock)dismissBlock;
 
 
 

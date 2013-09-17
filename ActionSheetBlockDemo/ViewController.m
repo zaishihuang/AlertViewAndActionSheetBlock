@@ -46,13 +46,34 @@
 //    [actionSheet showInView:self.view];
 //
     // or
+    /*
     UIActionSheet *actionSheet = [UIActionSheet actionSheetWithTitle:@"title"
                                                         buttonTitles:@[@"btn1",@"btn2",@"btn1",@"cancle"]
                                                              dismiss:nil];
     actionSheet.dismissBlock = ^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
         NSLog(@"==> actionSheet View Tap buttonIndex:%d",buttonIndex);
     };
+    [actionShe
+     et showInView:self.view];
+    */
+    // or
+    ButtonItem *item1 = [ButtonItem buttonItemWithTitle:@"btn1" actionBlock:^(id view, ButtonItem *buttonItem) {
+       // do it
+        NSLog(@"==>title:%@",buttonItem.title);
+    }];
+    ButtonItem *item2 = [ButtonItem buttonItemWithTitle:@"btn2" actionBlock:^(id view, ButtonItem *buttonItem) {
+        // do it
+        NSLog(@"==>title:%@",buttonItem.title);
+    }];
+    ButtonItem *item3 = [ButtonItem buttonItemWithTitle:@"btn3" actionBlock:^(id view, ButtonItem *buttonItem) {
+        // do it
+        NSLog(@"==>title:%@",buttonItem.title);
+    }];
+    ButtonItem *cancleItem = [ButtonItem buttonItemWithTitle:@"cancle"];
+    
+    UIActionSheet *actionSheet = [UIActionSheet actionSheetWithTitle:@"action title" buttonItems:@[item1,item2,item3,cancleItem]];
     [actionSheet showInView:self.view];
+
 }
 
 @end

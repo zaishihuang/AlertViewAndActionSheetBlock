@@ -17,7 +17,7 @@
     method_exchangeImplementations(oldMethod, newMethod);
 }
 
-- (void)blockDismissWithClickedButtonIndex:(NSUInteger)buttonIndex animated:(BOOL)animated {
+- (void)blockDismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
     [self blockDismissWithClickedButtonIndex:buttonIndex animated:animated];
 
     __weak UIActionSheet *weakSelf = self;
@@ -28,8 +28,8 @@
     NSArray *buttonItems = self.buttonItems;
     if (buttonIndex > -1 && buttonIndex < buttonItems.count) {
         ButtonItem *buttonItem = buttonItems[buttonIndex];
-        if (buttonItem.completeTapBlock) {
-            buttonItem.completeTapBlock(weakSelf,buttonItem);
+        if (buttonItem.actionBlock) {
+            buttonItem.actionBlock(weakSelf,buttonItem);
         }
     }
 }
@@ -41,7 +41,7 @@
          cancelButtonTitle:(NSString *)cancelTitle
     destructiveButtonTitle:(NSString *)destructiveTitle
          otherButtonTitles:(NSArray *)buttonTitles
-                   dismiss:(DismissBlock)dismissBlock {
+                   dismiss:(ActionSheetDismissBlock)dismissBlock {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:nil cancelButtonTitle:nil destructiveButtonTitle:destructiveTitle otherButtonTitles:nil];
     if (actionSheet) {
         for (NSString *buttonTitle in buttonTitles) {
@@ -62,7 +62,7 @@
               buttonTitles:(NSArray *)buttonTitles
          cancelButtonIndex:(NSInteger)cancelButtonIndex
     destructiveButtonIndex:(NSInteger)destructiveButtonIndex
-                   dismiss:(DismissBlock)dismissBlock {
+                   dismiss:(ActionSheetDismissBlock)dismissBlock {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     if (actionSheet) {
         for (NSString *buttonTitle in buttonTitles) {
@@ -79,13 +79,13 @@
 + (id)actionSheetWithTitle:(NSString *)title
               buttonTitles:(NSArray *)buttonTitles
     destructiveButtonIndex:(NSInteger)destructiveButtonIndex
-                   dismiss:(DismissBlock)dismissBlock {
+                   dismiss:(ActionSheetDismissBlock)dismissBlock {
     return [self actionSheetWithTitle:title buttonTitles:buttonTitles cancelButtonIndex:buttonTitles.count -1 destructiveButtonIndex:destructiveButtonIndex dismiss:dismissBlock];
 }
 
 + (id)actionSheetWithTitle:(NSString *)title
               buttonTitles:(NSArray *)buttonTitles
-                   dismiss:(DismissBlock)dismissBlock {
+                   dismiss:(ActionSheetDismissBlock)dismissBlock {
     return [self actionSheetWithTitle:title buttonTitles:buttonTitles cancelButtonIndex:buttonTitles.count -1 destructiveButtonIndex:-1 dismiss:dismissBlock];
 }
 
@@ -129,11 +129,11 @@
 #pragma mark Property Get or Set
 
 static char dismissBlockKey;
-- (DismissBlock)dismissBlock {
+- (ActionSheetDismissBlock)dismissBlock {
     return objc_getAssociatedObject(self, &dismissBlockKey);
 }
 
-- (void)setDismissBlock:(DismissBlock)dissmissBlock {
+- (void)setDismissBlock:(ActionSheetDismissBlock)dissmissBlock {
     if (self.dismissBlock != dissmissBlock) {
         objc_setAssociatedObject(self, &dismissBlockKey, dissmissBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }

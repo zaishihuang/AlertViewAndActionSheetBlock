@@ -11,17 +11,17 @@
 @implementation ButtonItem
 
 + (ButtonItem *)buttonItemWithTitle:(NSString *)title {
-    return [ButtonItem buttonItemWithTitle:title completeTapBlock:nil];
+    return [ButtonItem buttonItemWithTitle:title actionBlock:nil];
 }
 
-+ (ButtonItem *)buttonItemWithTitle:(NSString *)title completeTapBlock:(CompleteTapBlock)completeTapBlock {
-    return [[ButtonItem alloc] initWithTitle:title completeTapBlock:completeTapBlock];
++ (ButtonItem *)buttonItemWithTitle:(NSString *)title actionBlock:(ButtonItemActionBlock)actionBlock {
+    return [[ButtonItem alloc] initWithTitle:title actionBlock:actionBlock];
 }
 
-- (id)initWithTitle:(NSString *)title completeTapBlock:(CompleteTapBlock)completeTapBlock {
+- (id)initWithTitle:(NSString *)title actionBlock:(ButtonItemActionBlock)actionBlock {
     if (self == [super init]) {
         self.title = title;
-        self.completeTapBlock = completeTapBlock;
+        self.actionBlock = actionBlock;
     }
     return self;
 }
