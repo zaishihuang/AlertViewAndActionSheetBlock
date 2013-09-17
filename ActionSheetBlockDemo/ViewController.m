@@ -35,6 +35,15 @@
                        dismiss:^(id view, NSInteger buttonIndex) {
                            NSLog(@"==> alert View Tap buttonIndex:%d",buttonIndex);
     }];
+    
+    /*
+    ButtonItem *item1 = [ButtonItem buttonItemWithTitle:@"btn1" actionBlock:^(id view, ButtonItem *buttonItem) {
+        // do it
+        NSLog(@"==>title:%@",buttonItem.title);
+    }];
+    ButtonItem *cancleItem = [ButtonItem buttonItemWithTitle:@"cancle"];
+    [UIAlertView showWithTitle:@"title" message:@"message" cancelButtonItem:cancleItem otherButtonItems:@[item1]];
+     */
 }
 
 - (IBAction)actionButtonTap:(id)sender {
@@ -56,6 +65,7 @@
     [actionShe
      et showInView:self.view];
     */
+    
     // or
     ButtonItem *item1 = [ButtonItem buttonItemWithTitle:@"btn1" actionBlock:^(id view, ButtonItem *buttonItem) {
        // do it
