@@ -11,15 +11,17 @@
 
 @implementation UIActionSheet(Block)
 
-+ (void)load {
-    Method oldMethod = class_getInstanceMethod(self, @selector(dismissWithClickedButtonIndex:animated:));
-    Method newMethod = class_getInstanceMethod(self, @selector(blockDismissWithClickedButtonIndex:animated:));
-    method_exchangeImplementations(oldMethod, newMethod);
+- (id)initWithTitle:(NSString *)title{
+    return [self initWithTitle:title
+                      delegate:self
+             cancelButtonTitle:nil
+        destructiveButtonTitle:nil
+             otherButtonTitles:nil];
 }
 
-- (void)blockDismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
-    [self blockDismissWithClickedButtonIndex:buttonIndex animated:animated];
-
+#pragma mark -
+#pragma mark ActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     __weak UIActionSheet *weakSelf = self;
     if (self.dismissBlock) {
         self.dismissBlock(weakSelf,buttonIndex);
@@ -41,9 +43,14 @@
          cancelButtonTitle:(NSString *)cancelTitle
     destructiveButtonTitle:(NSString *)destructiveTitle
          otherButtonTitles:(NSArray *)buttonTitles
-                   dismiss:(ActionSheetDismissBlock)dismissBlock {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:nil cancelButtonTitle:nil destructiveButtonTitle:destructiveTitle otherButtonTitles:nil];
+                   dismiss:(ActionSheetDismissBlock)dismissBlock {    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title];
     if (actionSheet) {
+        if (destructiveTitle) {
+            [actionSheet addButtonWithTitle:destructiveTitle];
+            actionSheet.destructiveButtonIndex = 0;
+        }
+        
         for (NSString *buttonTitle in buttonTitles) {
             [actionSheet addButtonWithTitle:buttonTitle];
         }
@@ -63,7 +70,7 @@
          cancelButtonIndex:(NSInteger)cancelButtonIndex
     destructiveButtonIndex:(NSInteger)destructiveButtonIndex
                    dismiss:(ActionSheetDismissBlock)dismissBlock {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title];
     if (actionSheet) {
         for (NSString *buttonTitle in buttonTitles) {
             [actionSheet addButtonWithTitle:buttonTitle];
@@ -96,7 +103,7 @@
               buttonItems:(NSArray *)buttonItems
          cancelButtonIndex:(NSInteger)cancelButtonIndex
     destructiveButtonIndex:(NSInteger)destructiveButtonIndex {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title];
     if (actionSheet) {
         for (ButtonItem *buttonItem in buttonItems) {
             [actionSheet addButtonWithTitle:buttonItem.title];

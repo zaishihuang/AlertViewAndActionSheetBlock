@@ -11,12 +11,12 @@
 
 typedef void(^AlertViewDismissBlock)(UIAlertView *alertView, NSInteger buttonIndex);
 
-@interface UIAlertView (Block)
+@interface UIAlertView (Block)<UIAlertViewDelegate>
 @property (copy, nonatomic) AlertViewDismissBlock dismissBlock;
 @property (strong, nonatomic) NSArray *buttonItems;
 
 // Dismiss Block
-// cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
+// Default cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
 + (id)showWithTitle:(NSString *)title
             message:(NSString *)message
        buttonTitles:(NSArray *)buttonTitles
@@ -34,9 +34,7 @@ typedef void(^AlertViewDismissBlock)(UIAlertView *alertView, NSInteger buttonInd
   otherButtonTitles:(NSArray *)otherButtonTitles
             dismiss:(AlertViewDismissBlock)dismissBlock;
 
-- (void)showWithDismiss:(AlertViewDismissBlock)dismissBlock;
-
-// cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
+// Default cancelButtonIndex = (buttonTitles.count == 2 ? 0 : buttonTitles.count -1)
 + (id)alertViewWithTitle:(NSString *)title
                  message:(NSString *)message
             buttonTitles:(NSArray *)buttonTitles

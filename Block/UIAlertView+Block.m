@@ -11,19 +11,20 @@
 
 @implementation UIAlertView (Block)
 
-+ (void)load {
-    Method oldMethod = class_getInstanceMethod(self, @selector(dismissWithClickedButtonIndex:animated:));
-    Method newMethod = class_getInstanceMethod(self, @selector(blockDismissWithClickedButtonIndex:animated:));
-    method_exchangeImplementations(oldMethod, newMethod);
+- (id)initWithTitle:(NSString *)title
+            message:(NSString *)message
+  cancelButtonTitle:(NSString *)cancelButtonTitle {
+    return [self initWithTitle:title
+                       message:message
+                      delegate:self
+             cancelButtonTitle:cancelButtonTitle
+             otherButtonTitles:nil];
 }
 
-- (void)showWithDismiss:(AlertViewDismissBlock)dismissBlock {
-    self.dismissBlock = dismissBlock;
-    [self show];
-}
-
-- (void)blockDismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
-    [self blockDismissWithClickedButtonIndex:buttonIndex animated:animated];
+#pragma mark -
+#pragma mark AlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     __weak UIAlertView *weakSelf = self;
     if (self.dismissBlock) {
         self.dismissBlock(weakSelf,buttonIndex);
@@ -46,7 +47,7 @@
        cancelButtonTitle:(NSString *)cancelButtonTitle
        otherButtonTitles:(NSArray *)otherButtonTitles
                  dismiss:(AlertViewDismissBlock)dismissBlock {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message cancelButtonTitle:nil];
     if (alertView) {
         if (cancelButtonTitle && otherButtonTitles.count < 2) {//cancelButton Index at 0
             [alertView addButtonWithTitle:cancelButtonTitle];
@@ -71,7 +72,7 @@
             buttonTitles:(NSArray *)buttonTitles
        cancelButtonIndex:(NSInteger)cancelButtonIndex
                  dismiss:(AlertViewDismissBlock)dismissBlock {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message cancelButtonTitle:nil];
     if (alertView) {
         for (NSString *buttonTitle in buttonTitles) {
             [alertView addButtonWithTitle:buttonTitle];
@@ -137,7 +138,7 @@
 #pragma mark ButtonItem Block
 
 + (id)alertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonItem:(ButtonItem *)cancelButtonItem otherButtonItems:(NSArray *)otherButtonItems {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message cancelButtonTitle:nil];
     if (alertView) {
         NSMutableArray *buttonItems = [NSMutableArray array];
         if (cancelButtonItem && otherButtonItems.count < 2) {//cancelButton Index at 0
@@ -190,3 +191,4 @@ static char buttonItemsKey;
 }
 
 @end
+

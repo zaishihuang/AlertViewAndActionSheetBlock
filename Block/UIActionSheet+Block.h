@@ -11,18 +11,18 @@
 
 typedef void(^ActionSheetDismissBlock)(UIActionSheet *actionSheet, NSInteger buttonIndex);
 
-@interface UIActionSheet (Block)
+@interface UIActionSheet (Block)<UIActionSheetDelegate>
 
 @property (copy, nonatomic) ActionSheetDismissBlock dismissBlock;
 @property (strong, nonatomic) NSArray *buttonItems;
 
 // dismiss Block
-// cancelButtonIndex = numberOfButtons - 1, destructiveButtonIndex = -1
+// Default cancelButtonIndex = numberOfButtons - 1, destructiveButtonIndex = -1
 + (id)actionSheetWithTitle:(NSString *)title
               buttonTitles:(NSArray *)buttonTitles
                    dismiss:(ActionSheetDismissBlock)dismissBlock;
 
-// cancelButtonIndex = numberOfButtons - 1
+// Default cancelButtonIndex = numberOfButtons - 1
 + (id)actionSheetWithTitle:(NSString *)title
               buttonTitles:(NSArray *)buttonTitles
     destructiveButtonIndex:(NSInteger)destructiveButtonIndex
@@ -43,11 +43,11 @@ typedef void(^ActionSheetDismissBlock)(UIActionSheet *actionSheet, NSInteger but
 
 
 // buttonItem Block
-// cancelButtonIndex = numberOfButtons - 1, destructiveButtonIndex = -1
+// Default cancelButtonIndex is numberOfButtons - 1 and destructiveButtonIndex is -1 by default
 + (id)actionSheetWithTitle:(NSString *)title
                buttonItems:(NSArray *)buttonItems;
 
-// cancelButtonIndex = -1
+// Default cancelButtonIndex = -1
 + (id)actionSheetWithTitle:(NSString *)title
                buttonItems:(NSArray *)buttonItems
     destructiveButtonIndex:(NSInteger)destructiveButtonIndex;

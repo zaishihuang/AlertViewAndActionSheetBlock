@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3A2E97C9-E45A-463C-AFB1-2E954A184049</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ActionSheetBlockDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>16BE1A39-3C8B-423D-95E0-19E6FB95F3FD</key>
+		<string>https://github.com/zaishihuang/AlertViewAndActionSheetBlock.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ActionSheetBlockDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>16BE1A39-3C8B-423D-95E0-19E6FB95F3FD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/zaishihuang/AlertViewAndActionSheetBlock.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>16BE1A39-3C8B-423D-95E0-19E6FB95F3FD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>16BE1A39-3C8B-423D-95E0-19E6FB95F3FD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ActionSheetBlockDemo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
